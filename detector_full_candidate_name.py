@@ -7,7 +7,7 @@ import json
 PII_PATTERNS = {
     "phone": re.compile(r"\b\d{10}\b"),
     "aadhar": re.compile(r"\b\d{4}\s?\d{4}\s?\d{4}\b"),
-    "passport": re.compile(r"\b[A-PR-WYa-pr-wy][1-9]\d{6}\b"),  # Simplified
+    "passport": re.compile(r"\b[A-PR-WYa-pr-wy][1-9]\d{6}\b"), 
     "upi_id": re.compile(r"\b[\w.-]+@[a-zA-Z]{2,}\b")
 }
 
@@ -39,7 +39,7 @@ def detect_pii(record):
     try:
         data = json.loads(record)
     except:
-        return record, False  # skip if not valid JSON
+        return record, False 
 
     for key, value in data.items():
         if not value or not isinstance(value, str):
@@ -65,7 +65,7 @@ def detect_pii(record):
 
 def main(input_file):
     df = pd.read_csv(input_file)
-    df.columns = df.columns.str.strip()  # remove accidental spaces in column names
+    df.columns = df.columns.str.strip()  #to remove accidental spaces in column names
 
     output_rows = []
 
@@ -84,3 +84,4 @@ if __name__ == "__main__":
         print("Usage: python3 detector_full_candidate_name.py iscp_pii_dataset.csv")
         sys.exit(1)
     main(sys.argv[1])
+
